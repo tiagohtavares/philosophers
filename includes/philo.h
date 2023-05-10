@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:08:33 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/08 20:17:21 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:13:57 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 typedef struct s_philo
 {
 	int					id;
+	int					left_fork_id;
+	int					right_fork_id;
+	int					is_thinking;
 	long int			last_meal;
 	pthread_t			thread;
 	struct s_data		*data;
@@ -41,6 +44,7 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	check;
+	pthread_mutex_t	forks[500];
 }	t_data;
 
 
@@ -50,5 +54,6 @@ int			init(t_data *data, char **argv);
 int			ft_atoi(const char *str);
 long long	time_snap(void);
 void		*philo_loop(void *temp);
+void	printing(t_philo *philo, char *str);
 
 #endif

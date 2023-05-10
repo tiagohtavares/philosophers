@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:14:17 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/08 20:13:46 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:14:35 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ int	init_philos(t_data *data)
 	{
 		data->philo[i].id = i;
 		data->philo[i].data = data;
-		data->philo[i].last_meal = 0;
+		data->philo[i].last_meal = time_snap();
+		data->philo[i].is_thinking = 0;
+		data->philo[i].left_fork_id = i;
+		data->philo[i].right_fork_id = (i + 1) % data->num_philo;
 		pthread_create(&data->philo[i].thread, NULL,
 			&philo_loop, &(data->philo[i]));
 		i++;
-		usleep(10);
+		usleep(100);
 	}
 	i = 0;
 	while (i < data->num_philo)
@@ -64,11 +67,20 @@ int	init_vars(t_data *data, char **argv)
 
 int	init(t_data *data, char **argv)
 {
+	int	i;
+
+	i = 0;
 	if (init_vars(data, argv) == 0)
 		return (0);
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->dead, NULL);
 	pthread_mutex_init(&data->check, NULL);
+	pthread_mutex_init(&data->eating, NULL);
+	while(i < data->num_philo)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
 	if (init_philos(data) == 0)
 		return (0);
 	return (1);

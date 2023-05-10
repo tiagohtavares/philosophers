@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:07:40 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/08 19:16:29 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:06:45 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	clean_exit(t_data *data)
 {
+	pthread_mutex_destroy(&data->eating);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->check);
 	free(data->philo);
 }
 
