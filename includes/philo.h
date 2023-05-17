@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:08:33 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/10 13:13:57 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:41:09 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <string.h>
 # include <sys/time.h>
 
 typedef struct s_philo
@@ -24,7 +25,7 @@ typedef struct s_philo
 	int					id;
 	int					left_fork_id;
 	int					right_fork_id;
-	int					is_thinking;
+	int					meal_count;
 	long int			last_meal;
 	pthread_t			thread;
 	struct s_data		*data;
@@ -33,27 +34,26 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				num_philo;
-	int				num_eat;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
-	int				stop;
+	int				num_eat;
+	int				dead;
+	int				all_finished_eat;
 	long int		time_start;
-	t_philo			*philo;
-	pthread_mutex_t	eating;
+	pthread_mutex_t	meal;
 	pthread_mutex_t	print;
-	pthread_mutex_t	dead;
-	pthread_mutex_t	check;
-	pthread_mutex_t	forks[500];
+	pthread_mutex_t	forks[250];
+	t_philo			*philo;
 }	t_data;
-
-
 
 int			check_args(int argc, char **argv);
 int			init(t_data *data, char **argv);
 int			ft_atoi(const char *str);
 long long	time_snap(void);
-void		*philo_loop(void *temp);
-void	printing(t_philo *philo, char *str);
+void		*loop(void *temp);
+void		printing(t_philo *philo, char *str);
+void		philo_manager(t_data *data);
+void		clean_exit(t_data *data);
 
 #endif

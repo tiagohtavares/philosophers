@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:07:40 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/10 12:06:45 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:21:43 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	clean_exit(t_data *data)
 {
-	pthread_mutex_destroy(&data->eating);
+	int	i;
+
+	i = 0;
+	while (i < data->num_philo)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->dead);
-	pthread_mutex_destroy(&data->check);
+	pthread_mutex_destroy(&data->meal);
 	free(data->philo);
 }
 
