@@ -6,11 +6,11 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:09:22 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/16 20:33:37 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:28:43 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 int	ft_atoi(const char *str)
 {

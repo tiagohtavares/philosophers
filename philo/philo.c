@@ -6,11 +6,11 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:48:48 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/17 01:33:16 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:26:46 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
+#include "../includes/philo.h"
 
 void	philo_manager(t_data *data)
 {
@@ -62,8 +62,8 @@ void	philo_eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->meal);
 	usleep(philo->data->time_eat * 1000);
 	philo->meal_count++;
-	pthread_mutex_unlock(&philo->data->forks[philo->left_fork_id]);
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork_id]);
+	pthread_mutex_unlock(&philo->data->forks[philo->left_fork_id]);
 }
 
 void	*loop(void *temp)
@@ -71,7 +71,7 @@ void	*loop(void *temp)
 	t_philo	*philo;
 
 	philo = (t_philo *)temp;
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 		usleep(15000);
 	while (!(philo->data->dead))
 	{

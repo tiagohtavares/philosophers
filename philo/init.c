@@ -6,11 +6,11 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:14:17 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/17 01:26:19 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:26:35 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
+#include "../includes/philo.h"
 
 void	start_philos(t_data *data)
 {
@@ -39,14 +39,29 @@ int	init_philos(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->num_philo)
+	if (data->num_philo % 2 != 0)
 	{
-		data->philo[i].id = i;
-		data->philo[i].meal_count = 0;
-		data->philo[i].left_fork_id = i;
-		data->philo[i].right_fork_id = (i + 1) % data->num_philo;
-		data->philo[i].data = data;
-		i++;
+		while (i < data->num_philo)
+		{
+			data->philo[i].id = i;
+			data->philo[i].meal_count = 0;
+			data->philo[i].right_fork_id = i;
+			data->philo[i].left_fork_id = (i + 1) % data->num_philo;
+			data->philo[i].data = data;
+			i++;
+		}
+	}
+	else if (data->num_philo % 2 == 0)
+	{
+		while (i < data->num_philo)
+		{
+			data->philo[i].id = i;
+			data->philo[i].meal_count = 0;
+			data->philo[i].left_fork_id = i;
+			data->philo[i].right_fork_id = (i + 1) % data->num_philo;
+			data->philo[i].data = data;
+			i++;
+		}
 	}
 	return (1);
 }
