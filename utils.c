@@ -6,11 +6,11 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:24:48 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/24 11:26:49 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:59:55 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "./includes/philo.h"
 
 long long	time_snap(void)
 {

@@ -6,11 +6,11 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:14:17 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/24 11:26:35 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:38:32 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "./includes/philo.h"
 
 void	start_philos(t_data *data)
 {
@@ -34,6 +34,23 @@ void	start_philos(t_data *data)
 	}
 }
 
+int	init_philos_extra(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_philo)
+	{
+		data->philo[i].id = i;
+		data->philo[i].meal_count = 0;
+		data->philo[i].left_fork_id = i;
+		data->philo[i].right_fork_id = (i + 1) % data->num_philo;
+		data->philo[i].data = data;
+		i++;
+	}
+	return (1);
+}
+
 int	init_philos(t_data *data)
 {
 	int	i;
@@ -53,15 +70,7 @@ int	init_philos(t_data *data)
 	}
 	else if (data->num_philo % 2 == 0)
 	{
-		while (i < data->num_philo)
-		{
-			data->philo[i].id = i;
-			data->philo[i].meal_count = 0;
-			data->philo[i].left_fork_id = i;
-			data->philo[i].right_fork_id = (i + 1) % data->num_philo;
-			data->philo[i].data = data;
-			i++;
-		}
+		init_philos_extra(data);
 	}
 	return (1);
 }
@@ -105,6 +114,9 @@ int	init(t_data *data, char **argv)
 		return (0);
 	pthread_mutex_init(&data->meal, NULL);
 	pthread_mutex_init(&data->print, NULL);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philo);
+	if (data->forks == NULL)
+		return (0);
 	while (i < data->num_philo)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);

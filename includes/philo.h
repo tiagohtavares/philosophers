@@ -6,7 +6,7 @@
 /*   By: ttavares <ttavares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:08:33 by ttavares          #+#    #+#             */
-/*   Updated: 2023/05/16 20:41:09 by ttavares         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:57:29 by ttavares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 	long int		time_start;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	print;
-	pthread_mutex_t	forks[250];
+	pthread_mutex_t	*forks;
 	t_philo			*philo;
 }	t_data;
 
